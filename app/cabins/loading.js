@@ -4,6 +4,7 @@ function loading() {
   return (
     <div className="grid justify-center items-center">
       <Spinner />
+      <p>Loading Cabins data...</p>
     </div>
   );
 }

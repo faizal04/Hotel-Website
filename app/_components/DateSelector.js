@@ -2,6 +2,7 @@
 import { isWithinInterval } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { useReservation } from "./ReservationContext";
 
 function isAlreadyBooked(range, datesArr) {
   return (
@@ -14,42 +15,33 @@ function isAlreadyBooked(range, datesArr) {
 }
 
 function DateSelector({ settings, bookedDates, cabins }) {
-  // const { range, setRange, resetRange } = useReservation();
+  const { range, setRange, resetRange } = useReservation();
+
   // CHANGE
   const regularPrice = 23;
   const discount = 23;
   const numNights = 23;
   const cabinPrice = 23;
-  const range = { from: null, to: null };
+  // const range = { from: null, to: null };
 
   // SETTINGS
   const { minBookingLength, maxBookingLength } = settings;
+  console.log(minBookingLength, maxBookingLength);
 
   return (
     <div className="flex flex-col justify-between  ">
       <DayPicker
-        className="pt-12 place-self-center flex gap-4 space-y-2"
-        classNames={{
-          root: `shadow-md p-2 text-sm`,
-          months: "flex gap-4", // <-- this makes months sit side-by-side
-          month: "space-y-2", // optional: add spacing inside each month block
-          caption_label: "text-sm font-medium",
-          weekday: "text-xs text-gray-500",
-          day: "w-8 h-8 text-xs",
-          today: "border-amber-500",
-          selected: "bg-amber-500 border-amber-500 text-white",
-          chevron: "w-7 h-7 fill-amber-500",
-        }}
+        className="pt-12 place-self-center flex  space-y-2"
         mode="range"
-        // onSelect={setRange}
+        onSelect={(date) => setRange(date)}
         selected={range}
         min={minBookingLength + 1}
         max={maxBookingLength}
-        fromMonth={new Date()}
         fromDate={new Date()}
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
+        disabled={{ before: new Date() }}
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">
@@ -83,7 +75,7 @@ function DateSelector({ settings, bookedDates, cabins }) {
         {range.from || range.to ? (
           <button
             className="border border-primary-800 py-2 px-4 text-sm font-semibold"
-            onClick={() => resetRange()}
+            onClick={resetRange}
           >
             Clear
           </button>

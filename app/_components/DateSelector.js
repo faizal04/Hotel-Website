@@ -1,3 +1,4 @@
+"use client";
 import { isWithinInterval } from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -12,7 +13,8 @@ function isAlreadyBooked(range, datesArr) {
   );
 }
 
-function DateSelector() {
+function DateSelector({ settings, bookedDates, cabins }) {
+  // const { range, setRange, resetRange } = useReservation();
   // CHANGE
   const regularPrice = 23;
   const discount = 23;
@@ -21,14 +23,26 @@ function DateSelector() {
   const range = { from: null, to: null };
 
   // SETTINGS
-  const minBookingLength = 1;
-  const maxBookingLength = 23;
+  const { minBookingLength, maxBookingLength } = settings;
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col justify-between  ">
       <DayPicker
-        className="pt-12 place-self-center"
+        className="pt-12 place-self-center flex gap-4 space-y-2"
+        classNames={{
+          root: `shadow-md p-2 text-sm`,
+          months: "flex gap-4", // <-- this makes months sit side-by-side
+          month: "space-y-2", // optional: add spacing inside each month block
+          caption_label: "text-sm font-medium",
+          weekday: "text-xs text-gray-500",
+          day: "w-8 h-8 text-xs",
+          today: "border-amber-500",
+          selected: "bg-amber-500 border-amber-500 text-white",
+          chevron: "w-7 h-7 fill-amber-500",
+        }}
         mode="range"
+        // onSelect={setRange}
+        selected={range}
         min={minBookingLength + 1}
         max={maxBookingLength}
         fromMonth={new Date()}

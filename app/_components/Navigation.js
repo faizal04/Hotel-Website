@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { auth } from "../_lib/auth";
 
-export default function Navigation() {
+export default async function Navigation() {
+  const session = await auth();
+  console.log(session);
+
   return (
     <nav className="z-10 text-xl">
       <ul className="flex gap-16 items-center">
@@ -20,6 +24,7 @@ export default function Navigation() {
             About
           </Link>
         </li>
+
         <li>
           <Link
             href="/account"
@@ -28,6 +33,16 @@ export default function Navigation() {
             Guest area
           </Link>
         </li>
+        {session?.user && (
+          <li>
+            <img
+              src={session?.user.image}
+              className="h-8 w-8 rounded-full"
+              alt={session?.user.name}
+              referrerPolicy="no-referrer"
+            />
+          </li>
+        )}
       </ul>
     </nav>
   );

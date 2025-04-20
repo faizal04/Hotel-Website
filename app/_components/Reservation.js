@@ -2,6 +2,8 @@ import { unstable_noStore as noStore } from "next/cache";
 import { getBookedDatesByCabinId, getSettings } from "../_lib/data-service";
 import DateSelector from "./DateSelector";
 import ReservationForm from "./ReservationForm";
+import { auth } from "../_lib/auth";
+import LoginMessage from "./LoginMessage";
 
 async function Reservation({ cabin }) {
   // const settings = await getSettings();
@@ -10,6 +12,7 @@ async function Reservation({ cabin }) {
     getBookedDatesByCabinId(cabin.id),
     noStore(),
   ]);
+  const session = await auth();
 
   console.log(settings);
   return (
@@ -19,7 +22,11 @@ async function Reservation({ cabin }) {
         bookedDates={bookedDates}
         cabin={cabin}
       />
-      <ReservationForm cabin={cabin} />
+      {session?.user ? (
+        <ReservationForm cabin={cabin} user={session?.user} />
+      ) : (
+        <LoginMessage />
+      )}
     </div>
   );
 }

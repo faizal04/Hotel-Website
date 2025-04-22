@@ -15,13 +15,11 @@ export const authOptions = {
     },
     async signIn({ user }) {
       try {
-        console.log("hit sigin");
         const existingUser = await getGuest(user.email);
         if (!existingUser)
           await createGuest({ email: user.email, fullName: user.name });
         return true;
       } catch {
-        console.log("signIn failed");
         return false;
       }
     },

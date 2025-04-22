@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { supabase } from "./supabase";
 
 const { signIn, signOut, auth } = require("./auth");
@@ -23,6 +24,9 @@ export async function updateGuest(formData) {
     console.error(error);
     throw new Error("Guest could not be updated");
   }
+
+  revalidatePath("/account/profile");
+
   return data;
 }
 

@@ -1,7 +1,8 @@
 import SelectCountry from "@/app/_components/SelectCountry";
-import { updateGuest } from "@/app/_lib/actions";
+import UpdateProfileForm from "@/app/_components/UpdateProfileForm";
 import { auth } from "@/app/_lib/auth";
 import { getGuest } from "@/app/_lib/data-service";
+// import { useFormStatus } from "react-dom";
 export const metadata = {
   title: "Update Profile",
 };
@@ -9,8 +10,6 @@ export const metadata = {
 export default async function Page() {
   const session = await auth();
   const guest = await getGuest(session.user.email);
-  const { fullName, email, nationality, nationalID } = guest;
-  console.log(nationalID, nationality);
 
   return (
     <div>
@@ -22,64 +21,15 @@ export default async function Page() {
         Providing the following information will make your check-in process
         faster and smoother. See you soon!
       </p>
-
-      <form
-        action={updateGuest}
-        className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
-      >
-        <div className="space-y-2">
-          <label>Full name</label>
-          <input
-            defaultValue={fullName}
-            name="fullName"
-            disabled
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label>Email address</label>
-          <input
-            name="email"
-            defaultValue={email}
-            disabled
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
-          />
-        </div>
-
-        <div className="space-y-2">
-          {/* <div className="flex items-center justify-between">
-            <label htmlFor="nationality">Where are you from?</label>
-            <img
-              src={countryFlag}
-              alt="Country flag"
-              className="h-5 rounded-sm"
-            />
-          </div> */}
-
-          <SelectCountry
-            name="nationality"
-            id="nationality"
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-            defaultCountry={nationality}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="nationalID">National ID number</label>
-          <input
-            defaultValue={nationalID}
-            name="nationalID"
-            className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-          />
-        </div>
-
-        <div className="flex justify-end items-center gap-6">
-          <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-            Update profile
-          </button>
-        </div>
-      </form>
+      <UpdateProfileForm guest={guest}>
+        {" "}
+        <SelectCountry
+          name="nationality"
+          id="nationality"
+          className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+          defaultCountry={guest.nationality}
+        />
+      </UpdateProfileForm>
     </div>
   );
 }

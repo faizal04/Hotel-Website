@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { supabase } from "./supabase";
+import { getBookings } from "./data-service";
+import { redirect } from "next/navigation";
 
 const { signIn, signOut, auth } = require("./auth");
 
@@ -29,6 +31,22 @@ export async function updateGuest(formData) {
 
   return data;
 }
+export async function deleteBooking(id) {
+  const session = await auth();
+  if (!session.user) throw new Error("You are not Logged in");
+  const guestBookings = await getBookings(session.user.guestId);
+  const bookingIds = guestBookings.map((booking) => booking.id);
+  if (!bookingIds.includes(id))
+    throw new Error("You are not allowed to delete this booking");
+
+  const { error } = await supabase.from("bookings").delete().eq("id", id);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be deleted");
+  }
+  revalidatePath("/account/reservations");
+}
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -36,4 +54,37 @@ export async function signInAction() {
 
 export async function signOutAction() {
   await signOut({ redirectTo: "/" });
+}
+// id, updatedFields,
+export async function updateBooking(formData) {
+  const id = Number(formData.get("bookingId"));
+  //authorization check
+  const session = await auth();
+  if (!session.user) throw new Error("You are not Logged in");
+  const guestBookings = await getBookings(session.user.guestId);
+  const bookingIds = guestBookings.map((booking) => booking.id);
+  if (!bookingIds.includes(id))
+    throw new Error("You are not allowed to Update this booking");
+
+  const updatedFields = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations"),
+  };
+  //updatingfields
+  const { error } = await supabase
+    .from("bookings")
+    .update(updatedFields)
+    .eq("id", id)
+    .select()
+    .single();
+  //error handling
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
+  //revalidate
+  revalidatePath("/account/reservations/edit");
+
+  //redirecting
+  redirect("/account/reservations");
 }

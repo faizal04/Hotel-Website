@@ -1,5 +1,11 @@
 "use client";
-import { isWithinInterval } from "date-fns";
+
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
@@ -14,34 +20,35 @@ function isAlreadyBooked(range, datesArr) {
   );
 }
 
-function DateSelector({ settings, bookedDates, cabins }) {
+function DateSelector({ settings, cabin, bookedDates }) {
   const { range, setRange, resetRange } = useReservation();
 
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
-  // const range = { from: null, to: null };
+  const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
 
-  // SETTINGS
+  const { regularPrice, discount } = cabin;
+  const numNights = differenceInDays(displayRange.to, displayRange.from);
+  const cabinPrice = numNights * (regularPrice - discount);
+
   const { minBookingLength, maxBookingLength } = settings;
-  console.log(minBookingLength, maxBookingLength);
 
   return (
-    <div className="flex flex-col justify-between  ">
+    <div className="flex flex-col justify-between">
       <DayPicker
-        className="pt-12 place-self-center flex  space-y-2"
+        className="pt-12 place-self-center"
         mode="range"
-        onSelect={(date) => setRange(date)}
-        selected={range}
+        onSelect={setRange}
+        selected={displayRange}
         min={minBookingLength + 1}
         max={maxBookingLength}
+        fromMonth={new Date()}
         fromDate={new Date()}
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
-        disabled={{ before: new Date() }}
+        disabled={(curDate) =>
+          isPast(curDate) ||
+          bookedDates.some((date) => isSameDay(date, curDate))
+        }
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">

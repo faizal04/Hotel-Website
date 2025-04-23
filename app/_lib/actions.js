@@ -114,7 +114,7 @@ export async function createBooking(bookingData, formData) {
     console.error(error);
     throw new Error("Booking could not be created");
   }
-  // revalidatePath("/cabins");
+  revalidatePath("/cabins");
 
-  // redirect("/thankyou");
+  redirect("/thankyou");
 }

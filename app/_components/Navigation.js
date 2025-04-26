@@ -25,12 +25,21 @@ export default async function Navigation() {
           </Link>
         </li>
         <li>
-          <Link
-            href="/account"
-            className="text-base sm:text-lg hover:text-accent-400 transition-colors"
-          >
-            Guest Area
-          </Link>
+          {session?.user ? (
+            <Link
+              href="/account"
+              className="text-base sm:text-lg hover:text-accent-400 transition-colors"
+            >
+              Guest Area
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-base sm:text-lg hover:text-accent-400 transition-colors"
+            >
+              Login
+            </Link>
+          )}
         </li>
         {session?.user && (
           <li>

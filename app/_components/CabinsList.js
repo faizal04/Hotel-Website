@@ -3,8 +3,6 @@ import CabinCard from "../_components/CabinCard";
 import { getCabins } from "../_lib/data-service";
 
 async function CabinsList({ filter }) {
-  // noStore();
-  // console.log(capacity);
   const cabins = await getCabins();
   if (!cabins.length) return null;
   let maxCapacity;

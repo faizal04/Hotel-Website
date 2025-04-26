@@ -13,13 +13,13 @@ async function Page() {
   const cabins = await getCabins();
 
   return (
-    <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
+      <div className="col-span-1 sm:col-span-2 lg:col-span-3">
+        <h1 className="text-3xl sm:text-4xl mb-6 text-accent-400 font-medium">
           Welcome to The Wild Oasis
         </h1>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           <p>
             Where nature&apos;s beauty and comfortable living blend seamlessly.
             Hidden away in the heart of the Italian Dolomites, this is your
@@ -41,29 +41,31 @@ async function Page() {
         </div>
       </div>
 
-      <div className="col-span-2">
+      <div className="col-span-1 sm:col-span-1 lg:col-span-2">
         <Image
           src={image1}
           quality={80}
           alt="Family sitting around a fire pit in front of cabin"
+          className="object-cover w-full h-72 sm:h-96 lg:h-full rounded-lg"
         />
       </div>
 
-      <div className="col-span-2">
+      <div className="col-span-1 sm:col-span-1 lg:col-span-2">
         <Image
           src={image2}
           quality={80}
           placeholder="blur"
           alt="Family that manages The Wild Oasis"
+          className="object-cover w-full h-72 sm:h-96 lg:h-full rounded-lg"
         />
       </div>
 
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+      <div className="col-span-1 sm:col-span-2 lg:col-span-3">
+        <h1 className="text-3xl sm:text-4xl mb-6 text-accent-400 font-medium">
           Managed by our family since 1962
         </h1>
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           <p>
             Since 1962, The Wild Oasis has been a cherished family-run retreat.
             Started by our grandparents, this haven has been nurtured with love

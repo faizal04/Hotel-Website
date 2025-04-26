@@ -22,9 +22,9 @@ export default async function Page({ params }) {
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
   return (
-    <div className="max-w-6xl mx-auto mt-8">
-      <div className="grid grid-cols-[3fr_4fr] gap-20 border border-primary-800 py-3 px-10 mb-24">
-        <div className="relative scale-[1.15] -translate-x-3">
+    <div className="sm:max-w-7xl w-full mt-8">
+      <div className="grid sm:grid-cols-[3fr_4fr] grid-rows-[1fr_3fr] gap-20 border border-primary-800 sm:py-3 sm:px-10 mb-24 ">
+        <div className="relative sm:scale-[1.15] sm:-translate-x-3">
           <Image
             src={image}
             fill
@@ -34,7 +34,7 @@ export default async function Page({ params }) {
         </div>
 
         <div>
-          <h3 className="text-accent-100 font-black text-7xl mb-5 translate-x-[-254px] bg-primary-950 p-6 pb-1 w-[150%]">
+          <h3 className="text-accent-100 font-black text-7xl mb-5 sm:translate-x-[-254px] bg-primary-950 p-6 pb-1]">
             Cabin {name}
           </h3>
 

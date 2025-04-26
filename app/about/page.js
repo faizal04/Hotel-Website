@@ -16,7 +16,7 @@ async function Page() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
       <div className="col-span-1 sm:col-span-2 lg:col-span-3">
         <h1 className="text-3xl sm:text-4xl mb-6 text-accent-400 font-medium">
-          Welcome to The Wild Oasis
+          Welcome to The Kashmir Paradise
         </h1>
 
         <div className="space-y-6 sm:space-y-8">
@@ -67,18 +67,18 @@ async function Page() {
 
         <div className="space-y-6 sm:space-y-8">
           <p>
-            Since 1962, The Wild Oasis has been a cherished family-run retreat.
-            Started by our grandparents, this haven has been nurtured with love
-            and care, passing down through our family as a testament to our
-            dedication to creating a warm, welcoming environment.
+            Since 1962, The Kashmir Paradise has been a cherished family-run
+            retreat. Started by our grandparents, this haven has been nurtured
+            with love and care, passing down through our family as a testament
+            to our dedication to creating a warm, welcoming environment.
           </p>
           <p>
-            Over the years, we&apos;ve maintained the essence of The Wild Oasis,
-            blending the timeless beauty of the mountains with the personal
-            touch only a family business can offer. Here, you&apos;re not just a
-            guest; you&apos;re part of our extended family. So join us at The
-            Wild Oasis soon, where tradition meets tranquility, and every visit
-            is like coming home.
+            Over the years, we&apos;ve maintained the essence of The Kashmir
+            Paradises, blending the timeless beauty of the mountains with the
+            personal touch only a family business can offer. Here, you&apos;re
+            not just a guest; you&apos;re part of our extended family. So join
+            us at The Kashmir Paradise soon, where tradition meets tranquility,
+            and every visit is like coming home.
           </p>
 
           <div>

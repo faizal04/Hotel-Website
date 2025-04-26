@@ -7,7 +7,7 @@ function Logo() {
       {/* eslint-disable-next-line */}
       <Image src="/logo.png" height="60" width="60" alt="The Wild Oasis logo" />
       <span className="text-xl font-semibold text-primary-100 hidden md:inline-block">
-        The Wild Oasis
+        The Kashmir Paradise
       </span>
     </Link>
   );

@@ -47,7 +47,7 @@ function DateSelector({ settings, cabin, bookedDates }) {
           captionLayout="dropdown"
           numberOfMonths={2}
           classNames={{
-            root: "w-full h-full ",
+            // root: "w-full h-full ",
             months:
               "flex flex-col sm:flex-row gap-6 sm:gap-8 justify-center text-base md:text-xl  ",
             month:
